@@ -1,0 +1,142 @@
+[
+  {
+    "roomNo": 101,
+    "pass": "room101pass",
+    "floor": 1,
+    "price": 50,
+    "isBooking": false
+  },
+  {
+    "roomNo": 102,
+    "pass": "room102pass",
+    "floor": 1,
+    "price": 75,
+    "isBooking": false
+  },
+  {
+    "roomNo": 103,
+    "pass": "room103pass",
+    "floor": 1,
+    "price": 50,
+    "isBooking": false
+  },
+  {
+    "roomNo": 104,
+    "pass": "room104pass",
+    "floor": 1,
+    "price": 120,
+    "isBooking": false
+  },
+  {
+    "roomNo": 105,
+    "pass": "room105pass",
+    "floor": 1,
+    "price": 75,
+    "isBooking": false
+  },
+  {
+    "roomNo": 201,
+    "pass": "room201pass",
+    "floor": 2,
+    "price": 55,
+    "isBooking": false
+  },
+  {
+    "roomNo": 202,
+    "pass": "room202pass",
+    "floor": 2,
+    "price": 80,
+    "isBooking": false
+  },
+  {
+    "roomNo": 203,
+    "pass": "room203pass",
+    "floor": 2,
+    "price": 130,
+    "isBooking": false
+  },
+  {
+    "roomNo": 204,
+    "pass": "room204pass",
+    "floor": 2,
+    "price": 55,
+    "isBooking": false
+  },
+  {
+    "roomNo": 205,
+    "pass": "room205pass",
+    "floor": 2,
+    "price": 80,
+    "isBooking": false
+  },
+  {
+    "roomNo": 301,
+    "pass": "room301pass",
+    "floor": 3,
+    "price": 60,
+    "isBooking": false
+  },
+  {
+    "roomNo": 302,
+    "pass": "room302pass",
+    "floor": 3,
+    "price": 85,
+    "isBooking": false
+  },
+  {
+    "roomNo": 303,
+    "pass": "room303pass",
+    "floor": 3,
+    "price": 140,
+    "isBooking": false
+  },
+  {
+    "roomNo": 304,
+    "pass": "room304pass",
+    "floor": 3,
+    "price": 60,
+    "isBooking": false
+  },
+  {
+    "roomNo": 305,
+    "pass": "room305pass",
+    "floor": 3,
+    "price": 85,
+    "isBooking": false
+  },
+  {
+    "roomNo": 401,
+    "pass": "room401pass",
+    "floor": 4,
+    "price": 65,
+    "isBooking": false
+  },
+  {
+    "roomNo": 402,
+    "pass": "room402pass",
+    "floor": 4,
+    "price": 90,
+    "isBooking": false
+  },
+  {
+    "roomNo": 403,
+    "pass": "room403pass",
+    "floor": 4,
+    "price": 150,
+    "isBooking": false
+  },
+  {
+    "roomNo": 404,
+    "pass": "room404pass",
+    "floor": 4,
+    "price": 65,
+    "isBooking": false
+  },
+  {
+    "roomNo": 405,
+    "pass": "room405pass",
+    "floor": 4,
+    "price": 90,
+    "isBooking": false
+  }
+]

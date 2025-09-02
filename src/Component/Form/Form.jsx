@@ -1,82 +1,108 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 
-const Form = ({ onSubmit }) => {
-  const [name, setName] = useState("");
-  const [pass, setPass] = useState("");
-  const {id}  = useParams()
-  const handleSubmit = (e) => {
+const Form = () => {
+
+  function handleSubmit(e){
     e.preventDefault();
-    onSubmit({ name, pass });
-    setName("");
-    setPass("");
-  };
 
-
-
-      const [rooms , setRooms] = useState([]);
-      useEffect(()=>{
-          fetch("/room.json")
-          .then(data => data.json())
-          .then(set => setRooms(set))
-      },[])
-  
-
-      const select = rooms.find(room => room.roomNo == id);
-      console.log(select);
-
+  }
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-blue-500 to-purple-600">
-      <div className="bg-white p-8 rounded-2xl shadow-xl w-96">
-        {/* Logo */}
-        <div className="flex flex-col items-center mb-6">
-          <div className="bg-blue-600 text-white w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl">
-            LH
+    <div className="flex justify-center items-center ">
+    <div className="bg-[#1B1F2B] rounded-2xl p-6 shadow-xl">
+      <h2 className="text-white text-xl font-semibold mb-6">Book your stay</h2>
+      
+      <form className="space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label className="block text-gray-400 text-sm mb-2">Check-in</label>
+            <input
+              type="date"
+              className="w-full bg-[#0F1320] text-white py-3 px-4 rounded-lg border border-gray-700 focus:outline-none focus:border-blue-500"
+            />
           </div>
-          <h1 className="text-2xl font-bold text-gray-800 mt-4">EconLodge</h1>
-          <p className="text-gray-500 text-sm">Premium Hospitality Experience</p>
+          <div>
+            <label className="block text-gray-400 text-sm mb-2">Check-out</label>
+            <input
+              type="date"
+              className="w-full bg-[#0F1320] text-white py-3 px-4 rounded-lg border border-gray-700 focus:outline-none focus:border-blue-500"
+            />
+          </div>
         </div>
-
-        {/* Welcome */}
-        <h2 className="text-lg font-semibold text-center text-gray-700 mb-6">
-          Welcome Guest
-        </h2>
-
-
-        {/* pass */}
-
-        <p className="text-md text-center text-gray-700 mb-6">
-         Passward : {select?.pass}
-        </p>
-
-        {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <input
-            type="text"
-            placeholder="Your Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400 outline-none"
-            required
-          />
-          <input
-            type="password"
-            placeholder="Room Password"
-            value={pass}
-            onChange={(e) => setPass(e.target.value)}
-            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400 outline-none"
-            required
-          />
-
-          <button
-            type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-semibold transition-all duration-300"
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <label className="block text-gray-400 text-sm mb-2">Room type</label>
+            <select className="w-full bg-[#0F1320] text-white py-3 px-4 rounded-lg border border-gray-700 focus:outline-none focus:border-blue-500">
+              <option value="standard">Standard</option>
+              <option value="double" selected>Double Bed</option>
+              <option value="luxury">Luxury Suite</option>
+            </select>
+          </div>
+          <div>
+            <label className="block text-gray-400 text-sm mb-2">Rooms</label>
+            <input
+              type="number"
+              value="2"
+              className="w-full bg-[#0F1320] text-white py-3 px-4 rounded-lg border border-gray-700 focus:outline-none focus:border-blue-500"
+            />
+          </div>
+          <div>
+            <label className="block text-gray-400 text-sm mb-2">Guests</label>
+            <input
+              type="number"
+              value="2"
+              className="w-full bg-[#0F1320] text-white py-3 px-4 rounded-lg border border-gray-700 focus:outline-none focus:border-blue-500"
+            />
+          </div>
+        </div>
+        
+        <div className="text-gray-400 text-xs mb-2">
+          Nightly rates shown below • taxes calculated at checkout
+        </div>
+        
+        <div className="flex gap-5 items-center">
+          <button 
+            type="button"
+            className="w-full bg-gradient-to-tr from-[#E8424A] to-[#F97D67] hover:bg-red-600 text-white font-medium py-3 rounded-lg transition-colors"
           >
-            Sign In
+            Check Availability
           </button>
-        </form>
-      </div>
+          <button 
+            type="button"
+            className="w-full bg-gray-700 hover:bg-gray-600 text-white font-medium py-3 rounded-lg transition-colors"
+          >
+            Add to Cart
+          </button>
+        </div>
+        
+        <div className="mt-6 p-4 bg-[#0F1320] rounded-lg">
+          <div className="text-gray-400 text-sm mb-2">
+            Estimate for 2 room(s) × 62 night(s) — Double Bed
+          </div>
+          <div className="text-white space-y-1">
+            <div className="flex justify-between">
+              <span>Room subtotal:</span>
+              <span>$12,276.00</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Est. taxes:</span>
+              <span>$1,473.12</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Est. fees:</span>
+              <span>$620.00</span>
+            </div>
+            <div className="flex justify-between font-semibold border-t border-gray-700 pt-2 mt-2">
+              <span>Estimated total:</span>
+              <span>$14,369.12</span>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
     </div>
   );
 };

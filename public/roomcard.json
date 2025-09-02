@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "name": "Standard",
+    "price": 79,
+    "description": "Cozy queen bed, desk, mini-fridge, and shower. Perfect for quick trips.",
+    "image": "/api/placeholder/300/200",
+    "features": ["Queen bed", "Desk", "Mini-fridge", "Shower"]
+  },
+  {
+    "id": 2,
+    "name": "Double Bed",
+    "price": 99,
+    "description": "Two double beds—great for families and friends. Coffee maker & fast Wi-Fi.",
+    "image": "/api/placeholder/300/200",
+    "features": ["Two double beds", "Coffee maker", "Fast Wi-Fi", "Family-friendly"]
+  },
+  {
+    "id": 3,
+    "name": "Luxury Suite",
+    "price": 149,
+    "description": "Separate living area, larger bath, and premium linens. Relax in style.",
+    "image": "/api/placeholder/300/200",
+    "features": ["Separate living area", "Larger bath", "Premium linens", "Premium amenities"]
+  }
+]

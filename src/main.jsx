@@ -11,6 +11,9 @@ import Error from './Component/Root/Error';
 import Home from './Component/Root/Home';
 import Dashboard from './Component/Dashboard/Dashboard';
 import Form from './Component/Form/Form';
+import AuthProvider from './Component/Provider/AuthProvider';
+import Confirm from './Component/Shared/Confirm';
+import MyBooking from './Component/MyBookings/MyBooking';
 
 const queryClient = new QueryClient()
 
@@ -27,6 +30,14 @@ const router = createBrowserRouter([
       {
         path: '/form/:id',
         element: <Form></Form>
+      },
+      {
+        path: '/confirmed',
+        element: <Confirm></Confirm>
+      },
+      {
+        path: '/mybookings',
+        element: <MyBooking></MyBooking>
       },
     ]
   },
@@ -46,7 +57,9 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')).render(
   <StrictMode>
      <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
     </QueryClientProvider>
   </StrictMode>,
 )

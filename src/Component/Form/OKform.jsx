@@ -393,7 +393,7 @@ const Form = () => {
   //  stripe payment
 
   useEffect(() => {
-    fetch("http://localhost:5000/create-payment-intent", {
+    fetch("https://hotek-book-server.vercel.app/create-payment-intent", {
       method: "POST",
       headers: { "Content-Type": "Application/json" },
       body: JSON.stringify({ grandTotal }),

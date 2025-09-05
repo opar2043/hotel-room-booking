@@ -1,6 +1,3 @@
-
-
-
 import React, { useEffect, useState } from "react";
 import useAuth from "../Hook/useAuth";
 import { loadStripe } from "@stripe/stripe-js";
@@ -8,10 +5,36 @@ import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "./CheckoutForm";
 import useAxios from "../Hook/useAxios";
 import Swal from "sweetalert2";
+import useRoom from "../Hook/useRoom";
+
 const Form = () => {
   const stripePromise = loadStripe(
     "pk_test_51QfDLMIXauIQhi9zpYyko394OCzT9oOQKPvLFEn5siB1Eld53WIRA6H63Oowd9ldwe1lkzoOO6WrEjUq2bQM1Tgi004aRSvT6f"
   );
+
+  // Room availabiloity
+
+  const [roomdata, isLoading, refetch] = useRoom([]) || [];
+
+  const standard =
+    roomdata &&
+    roomdata.filter(
+      (room) => room.status == "Free" && room.category == "Standard"
+    );
+  const double =
+    roomdata &&
+    roomdata.filter(
+      (room) => room.status == "Free" && room.category == "Double Bed"
+    );
+  const luxary =
+    roomdata &&
+    roomdata.filter(
+      (room) => room.status == "Free" && room.category == "Luxury Suite"
+    );
+  console.log(standard);
+
+  console.log(luxary);
+
   const [start, setStart] = useState("");
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
@@ -21,13 +44,10 @@ const Form = () => {
   const [guests, setGuests] = useState(1);
   const [clientSecret, setClientSecret] = useState("");
   const [showCheckout, setShowCheckout] = useState(false);
+  const [roomNum, setRoomnum] = useState(1);
+
   const axiosSecure = useAxios();
 
-  console.log(name , email);
-
-  console.log(start , end);
-
-  // ✅ Using global cart and drawer from AuthProvider
   const { drawerOpen, openDrawer, closeDrawer, cart, setCart } = useAuth();
 
   // calculate nights
@@ -47,14 +67,14 @@ const Form = () => {
   function handleBook(e) {
     e.preventDefault();
     if (!start || !end || new Date(start) >= new Date(end)) {
-      alert("Please select a valid check-in and check-out date.");
+      Swal.fire("Please select a valid check-in and check-out date.");
       return;
     }
   }
 
   function handleAddToCart() {
     if (!start || !end || new Date(start) >= new Date(end)) {
-        Swal.fire({
+      Swal.fire({
         title: "Please select a valid check-in and check-out date.",
         icon: "error",
         draggable: true,
@@ -75,12 +95,13 @@ const Form = () => {
       fees,
       total,
       isConfirm: true,
-      name : name,
-      email : email
+      name,
+      email,
+      // roomNum
     };
 
     setCart((prev) => [...prev, booking]);
-    openDrawer(); 
+    openDrawer();
   }
 
   function getRoomName(price) {
@@ -95,10 +116,9 @@ const Form = () => {
   const grandFees = cart.reduce((sum, item) => sum + item.fees, 0);
   const grandTotal = cart.reduce((sum, item) => sum + item.total, 0);
 
-  //  stripe payment
-
+  // stripe payment
   useEffect(() => {
-    fetch("http://localhost:5000/create-payment-intent", {
+    fetch("https://hotel-book-server-l4so.onrender.com/create-payment-intent", {
       method: "POST",
       headers: { "Content-Type": "Application/json" },
       body: JSON.stringify({ grandTotal }),
@@ -117,51 +137,91 @@ const Form = () => {
 
 
 
-  function handleCheckout() {
-    // STRIPE Payment Logic
-    if (clientSecret) {
-      setShowCheckout(true);
+    // called AFTER successful Stripe payment
+  function submitData() {
+    axiosSecure
+      .post("/bookings", cart)
+      .then(() => {
+        Swal.fire({
+          title: "Confirmed",
+          text: `Successfully booked for ${cart.length} room(s)`,
+          icon: "success",
+        });
 
-    //   axiosSecure
-    //     .post("/bookings", cart)
-    //     .then(() => {
-    //       Swal.fire({
-    //         title: "Confirmed",
-    //         text: `Successfully booked for ${cart.length} Rooms`,
-    //         icon: "success",
-    //       });
-
-    //       setCart([]);
-    //     })
-    //     .catch((err) => {
-    //       console.error(err);
-    //       Swal.fire({
-    //         title: "Something Went Wrong",
-    //         icon: "error",
-    //         draggable: true,
-    //       });
-    //     });
-    // } else {
-
-    //   Swal.fire({
-    //     title: "Something Went Wrong",
-    //     icon: "error",
-    //     draggable: true,
-    //   });
-    //   return;
-    // }
-
-    // Reset form inputs
-    // setStart("");
-    // setEnd("");
-    // setRooms(1);
-    // setGuests(2);
-    // setType(79);
-    // setEmail('')
-    // setName("")
+        // clear cart + reset form
+        setCart([]);
+        setStart("");
+        setEnd("");
+        setRooms(1);
+        setGuests(1);
+        setType(79);
+        setEmail("");
+        setName("");
+        setShowCheckout(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        Swal.fire({
+          title: "Something Went Wrong",
+          icon: "error",
+        });
+      });
   }
 
-}
+  function handleCheckout() {
+    if (clientSecret) {
+      setShowCheckout(true);
+    } else {
+      Swal.fire({
+        title: "Payment setup failed",
+        icon: "error",
+      });
+    }
+  }
+
+
+
+
+
+  // function handleCheckout() {
+  //   if (clientSecret) {
+  //     setShowCheckout(true);
+
+  //     axiosSecure
+  //       .post("/bookings", cart)
+  //       .then(() => {
+  //         Swal.fire({
+  //           title: "Confirmed",
+  //           text: `Successfully booked for ${cart.length} Rooms`,
+  //           icon: "success",
+  //         });
+
+  //         setCart([]);
+  //       })
+  //       .catch((err) => {
+  //         console.error(err);
+  //         Swal.fire({
+  //           title: "Something Went Wrong",
+  //           icon: "error",
+  //         });
+  //       });
+  //   } else {
+  //     Swal.fire({
+  //       title: "Something Went Wrong",
+  //       icon: "error",
+  //     });
+  //     return;
+  //   }
+
+  //   // reset
+  //   setStart("");
+  //   setEnd("");
+  //   setRooms(1);
+  //   setGuests(2);
+  //   setType(79);
+  //   setEmail("");
+  //   setName("");
+  // }
 
   return (
     <div className="flex justify-center items-center px-4">
@@ -171,15 +231,12 @@ const Form = () => {
           Book your stay
         </h2>
 
-        {/* Form start  */}
-
+        {/* Form start */}
         <form className="space-y-4" onSubmit={handleBook}>
-          {/* Dates */}
+          {/* Name + Email */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-gray-400 text-sm mb-2">
-                Name
-              </label>
+              <label className="block text-gray-400 text-sm mb-2">Name</label>
               <input
                 type="text"
                 placeholder="Enter Your name"
@@ -188,9 +245,7 @@ const Form = () => {
               />
             </div>
             <div>
-              <label className="block text-gray-400 text-sm mb-2">
-                Email
-              </label>
+              <label className="block text-gray-400 text-sm mb-2">Email</label>
               <input
                 type="email"
                 placeholder="Enter Your Email"
@@ -200,7 +255,7 @@ const Form = () => {
             </div>
           </div>
 
-
+          {/* Dates */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-gray-400 text-sm mb-2">
@@ -237,9 +292,29 @@ const Form = () => {
                 onChange={(e) => setType(Number(e.target.value))}
                 className="w-full bg-[#0F1320] text-white py-3 px-4 rounded-lg border border-gray-700 focus:outline-none focus:border-blue-500 text-sm"
               >
-                <option value={79}>Standard / $79</option>
-                <option value={99}>Double Bed / $99</option>
-                <option value={149}>Luxury Suite / $149</option>
+                {standard && standard.length > 0 ? (
+                  <option value={79}>Standard / $79</option>
+                ) : (
+                  <option value={0} disabled className="text-gray-400">
+                    Standard / $79 (All Booked)
+                  </option>
+                )}
+
+                {double && double.length > 0 ? (
+                  <option value={99}>Double Bed / $99</option>
+                ) : (
+                  <option value={0} disabled className="text-gray-400">
+                    Double Bed / $99 (All Booked)
+                  </option>
+                )}
+
+                {luxary && luxary.length > 0 ? (
+                  <option value={149}>Luxury Suite / $149</option>
+                ) : (
+                  <option value={0} disabled className="text-gray-400">
+                    Luxury Suite / $149 (All Booked)
+                  </option>
+                )}
               </select>
             </div>
             <div>
@@ -265,13 +340,10 @@ const Form = () => {
           </div>
 
           {/* Live Estimate */}
-
           <div className="text-white text-sm">
             {rooms} room(s) × {nights} night(s) — {getRoomName(type)} ($
             {type}/night) = ${subtotal.toFixed(2)}
           </div>
-
-          {/* Live Estimate closed */}
 
           <div className="flex gap-5 items-center">
             <button
@@ -291,10 +363,7 @@ const Form = () => {
           </div>
         </form>
 
-        {/* Form closed */}
-
         {/* Totals */}
-
         {cart.length > 0 && (
           <div className="text-white space-y-2 mb-4">
             <div className="flex justify-between">
@@ -317,8 +386,7 @@ const Form = () => {
         )}
       </div>
 
-      {/* Drawer     */}
-
+      {/* Drawer */}
       {drawerOpen && (
         <div className="fixed inset-0 flex justify-end z-50">
           <div
@@ -414,23 +482,30 @@ const Form = () => {
               </button>
             </div>
 
-            {/* ✅ Stripe Checkout Form */}
             {showCheckout && clientSecret && (
               <div className="mt-6">
                 <Elements options={options} stripe={stripePromise}>
-                  <CheckoutForm   />
+                  <CheckoutForm submitData = {submitData} />
                 </Elements>
               </div>
             )}
           </div>
         </div>
       )}
-
-      {/* Drawer Closed */}
     </div>
   );
 };
 
-
 export default Form;
+
+
+
+
+
+
+
+
+
+
+
 

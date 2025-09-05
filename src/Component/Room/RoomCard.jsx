@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from "react";
+import  img1 from '../../assets/hotel3.jpg'
+import  img2 from '../../assets/hotel4.jpg'
+import  img3 from '../../assets/hotel5.jpg'
 
 const RoomCard = () => {
   //   const [roomcard, setRoomcard] = useState([]);
@@ -15,7 +18,7 @@ const RoomCard = () => {
       price: 79,
       description:
         "Cozy queen bed, desk, mini-fridge, and shower. Perfect for quick trips.",
-      image: "/api/placeholder/300/200",
+      image: "https://i.ibb.co.com/p6h4xYkw/hotel3.jpg",
       features: ["Queen bed", "Desk", "Mini-fridge", "Shower"],
     },
     {
@@ -24,7 +27,7 @@ const RoomCard = () => {
       price: 99,
       description:
         "Two double beds—great for families and friends. Coffee maker & fast Wi-Fi.",
-      image: "/api/placeholder/300/200",
+      image: "https://i.ibb.co.com/8gstkwJx/hotel5.jpg",
       features: [
         "Two double beds",
         "Coffee maker",
@@ -38,7 +41,7 @@ const RoomCard = () => {
       price: 149,
       description:
         "Separate living area, larger bath, and premium linens. Relax in style.",
-      image: "/api/placeholder/300/200",
+        image: "https://i.ibb.co.com/27yMdDZ1/hotel4.jpg",
       features: [
         "Separate living area",
         "Larger bath",
@@ -71,7 +74,8 @@ const RoomCard = () => {
               >
                 {/* Room Image */}
                 <div className="h-48 bg-gray-700 flex items-center justify-center">
-                  <span className="text-gray-400">Room Image</span>
+                  {/* <span className="text-gray-400">Room Image</span> */}
+                  <img src={room.image} alt="room image" className="w-full" />
                 </div>
 
                 {/* Room Content */}

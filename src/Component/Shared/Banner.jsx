@@ -75,7 +75,7 @@ const Banner = () => {
               <p className="text-lg sm:text-xl text-gray-200 mb-6">
                 {slide.description}
               </p>
-              <Link to="/book">
+              <Link to="/">
                 <button className="rounded-lg bg-[#FB8911] px-8 py-3 font-semibold text-white shadow-lg transition-all duration-300 hover:bg-[#d8730f]">
                   Book Now
                 </button>

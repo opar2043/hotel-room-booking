@@ -29,9 +29,8 @@ const ContactService = () => {
       <div className=" bg-[#1B1F2B] p-5 rounded-xl w-full md:w-1/2">
         <h2 className="text-2xl font-bold text-white mb-6">Contact</h2>
         <div className="text-gray-400 space-y-2 mb-8">
-          <p>Address: Gretna, LA 70053 (update with exact street)</p>
-          <p>Phone: +1 (000) 000-0000</p>
-          <p>Email: stay@econolodge-gretna.example</p>
+          <p>Address: 50 Westbank Expressway, Gretna, LA 70053, United States.</p>
+          <p>Phone: +1 504-291-3299</p>
         </div>
 
         <div className="flex gap-4">

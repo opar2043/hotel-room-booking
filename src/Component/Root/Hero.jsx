@@ -5,12 +5,12 @@ import { Link } from "react-router-dom";
 const Hero = () => {
   return (
     <div className="bg-[#0C0E13] min-h-fit flex items-center justify-center px-4 py-8">
-      <div className="flex flex-col lg:flex-row-reverse w-full max-w-6xl gap-10">
-        {/* Form Section */}
+      <div className="flex flex-col-reverse lg:flex-row-reverse w-full max-w-6xl gap-10">
+
+         {/* Form Section */}
         <div className="w-full lg:w-2/5">
           <Form />
         </div>
-
         {/* Left side - Text Content */}
         <div className="w-full lg:w-3/5 text-white flex flex-col justify-center md:-mt-20">
           <h1 className="text-3xl lg:text-5xl font-bold leading-tight ">
@@ -31,6 +31,9 @@ const Hero = () => {
             Explore rooms ↓
           </Link>
         </div>
+
+
+
       </div>
     </div>
   );

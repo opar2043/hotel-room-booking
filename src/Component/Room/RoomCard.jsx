@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import  img1 from '../../assets/hotel3.jpg'
 import  img2 from '../../assets/hotel4.jpg'
 import  img3 from '../../assets/hotel5.jpg'
+import { Link } from "react-router-dom";
 
 const RoomCard = () => {
   //   const [roomcard, setRoomcard] = useState([]);
@@ -100,7 +101,9 @@ const RoomCard = () => {
                   {/* Action Buttons */}
                   <div className="flex gap-3">
                     <button className="bg-gradient-to-tr from-[#E8424A] to-[#F97D67] hover:bg-red-600 text-white font-medium py-2 px-4 rounded transition-colors text-sm">
-                      Add with Dates
+                      <Link to={'/'} >
+                         Add with Dates
+                      </Link>
                     </button>
                     <button className="bg-gray-700 hover:bg-gray-600 text-white font-medium py-2 px-4 rounded transition-colors text-sm">
                       Set Dates

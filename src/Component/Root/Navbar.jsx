@@ -29,44 +29,44 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const links = (
     <>
-      <li>
+      <li className="hover:text-orange-300">
         <NavLink to="/" onClick={() => setIsOpen(false)}>
           Home
         </NavLink>
       </li>
-      <li>
+      <li className="hover:text-orange-300">
         <NavLink to="/services" onClick={() => setIsOpen(false)}>
           Services
         </NavLink>
       </li>
-      <li>
+      <li className="hover:text-orange-300">
         <NavLink to="/about" onClick={() => setIsOpen(false)}>
           About
         </NavLink>
       </li>
-      <li>
+      <li className="hover:text-orange-300">
         <NavLink to="/facilities" onClick={() => setIsOpen(false)}>
           Facilities
         </NavLink>
       </li>
-      <li>
+      <li className="hover:text-orange-300">
         <NavLink to="/room" onClick={() => setIsOpen(false)}>
           Room
         </NavLink>
       </li>
       {user && admin && (
-        <li>
+        <li className="hover:text-orange-300">
           <NavLink to="/dashboard" onClick={() => setIsOpen(false)}>
             Dashboard
           </NavLink>
         </li>
       )}
       {user && user ? (
-        <li>
+        <li className="hover:text-orange-300">
           <button onClickCapture={() => logOut()}>Log Out</button>
         </li>
       ) : (
-        <li>
+        <li className="hover:text-orange-300">
           <NavLink to="/login" onClick={() => setIsOpen(false)}>
             Login
           </NavLink>
@@ -93,7 +93,7 @@ const Navbar = () => {
       </div>
 
       {/* Desktop Nav */}
-      <div className="hidden md:flex text-white/90">
+      <div className="hidden md:flex text-white/90 ">
         <ul className="menu menu-horizontal px-1 space-x-6 text-sm font-medium">
           {links}
         </ul>

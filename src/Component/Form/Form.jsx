@@ -31,9 +31,11 @@ const Form = () => {
     roomdata.filter(
       (room) => room.status == "Free" && room.category == "Luxury Suite"
     );
-  console.log(standard);
 
-  console.log(luxary);
+  const allbed = standard && double && luxary;
+  // console.log(standard);
+
+  // console.log(luxary);
 
   const [start, setStart] = useState("");
   const [email, setEmail] = useState("");
@@ -135,9 +137,7 @@ const Form = () => {
     appearance,
   };
 
-
-
-    // called AFTER successful Stripe payment
+  // called AFTER successful Stripe payment
   function submitData() {
     axiosSecure
       .post("/bookings", cart)
@@ -179,54 +179,10 @@ const Form = () => {
     }
   }
 
-
-
-
-
-  // function handleCheckout() {
-  //   if (clientSecret) {
-  //     setShowCheckout(true);
-
-  //     axiosSecure
-  //       .post("/bookings", cart)
-  //       .then(() => {
-  //         Swal.fire({
-  //           title: "Confirmed",
-  //           text: `Successfully booked for ${cart.length} Rooms`,
-  //           icon: "success",
-  //         });
-
-  //         setCart([]);
-  //       })
-  //       .catch((err) => {
-  //         console.error(err);
-  //         Swal.fire({
-  //           title: "Something Went Wrong",
-  //           icon: "error",
-  //         });
-  //       });
-  //   } else {
-  //     Swal.fire({
-  //       title: "Something Went Wrong",
-  //       icon: "error",
-  //     });
-  //     return;
-  //   }
-
-  //   // reset
-  //   setStart("");
-  //   setEnd("");
-  //   setRooms(1);
-  //   setGuests(2);
-  //   setType(79);
-  //   setEmail("");
-  //   setName("");
-  // }
-
   return (
     <div className="flex justify-center items-center px-4">
       {/* Booking Form */}
-      <div className="bg-[#1B1F2B] rounded-2xl p-6 shadow-xl max-w-lg w-full">
+      <div className="bg-[#1B1F2B] rounded-2xl p-5 shadow-xl max-w-lg w-full">
         <h2 className="text-white text-xl font-semibold mb-6">
           Book your stay
         </h2>
@@ -234,7 +190,7 @@ const Form = () => {
         {/* Form start */}
         <form className="space-y-4" onSubmit={handleBook}>
           {/* Name + Email */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-gray-400 text-sm mb-2">Name</label>
               <input
@@ -256,7 +212,7 @@ const Form = () => {
           </div>
 
           {/* Dates */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-gray-400 text-sm mb-2">
                 Check-in
@@ -287,35 +243,37 @@ const Form = () => {
               <label className="block text-gray-400 text-sm mb-2">
                 Room type
               </label>
-              <select
-                value={type}
-                onChange={(e) => setType(Number(e.target.value))}
-                className="w-full bg-[#0F1320] text-white py-3 px-4 rounded-lg border border-gray-700 focus:outline-none focus:border-blue-500 text-sm"
-              >
-                {standard && standard.length > 0 ? (
-                  <option value={79}>Standard / $79</option>
-                ) : (
-                  <option value={0} disabled className="text-gray-400">
-                    Standard / $79 (All Booked)
-                  </option>
-                )}
+              {allbed && (
+                <select
+                  value={type}
+                  onChange={(e) => setType(Number(e.target.value))}
+                  className="w-full bg-[#0F1320] text-white py-3 px-4 rounded-lg border border-gray-700 focus:outline-none focus:border-blue-500 text-sm"
+                >
+                  {standard && standard.length > 0 ? (
+                    <option value={79}>Standard / $79</option>
+                  ) : (
+                    <option value={0} disabled className="text-gray-400">
+                      Standard / $79 (All Booked)
+                    </option>
+                  )}
 
-                {double && double.length > 0 ? (
-                  <option value={99}>Double Bed / $99</option>
-                ) : (
-                  <option value={0} disabled className="text-gray-400">
-                    Double Bed / $99 (All Booked)
-                  </option>
-                )}
+                  {double && double.length > 0 ? (
+                    <option value={99}>Double Bed / $99</option>
+                  ) : (
+                    <option value={0} disabled className="text-gray-400">
+                      Double Bed / $99 (All Booked)
+                    </option>
+                  )}
 
-                {luxary && luxary.length > 0 ? (
-                  <option value={149}>Luxury Suite / $149</option>
-                ) : (
-                  <option value={0} disabled className="text-gray-400">
-                    Luxury Suite / $149 (All Booked)
-                  </option>
-                )}
-              </select>
+                  {luxary && luxary.length > 0 ? (
+                    <option value={149}>Luxury Suite / $149</option>
+                  ) : (
+                    <option value={0} disabled className="text-gray-400">
+                      Luxury Suite / $149 (All Booked)
+                    </option>
+                  )}
+                </select>
+              )}
             </div>
             <div>
               <label className="block text-gray-400 text-sm mb-2">Rooms</label>
@@ -348,15 +306,15 @@ const Form = () => {
           <div className="flex gap-5 items-center">
             <button
               type="submit"
-              className="w-full bg-gradient-to-tr from-[#E8424A] to-[#F97D67] hover:opacity-90 text-white font-medium py-3 rounded-lg transition-colors text-sm"
+              className="w-full bg-gray-700 hover:bg-gray-600 hover:opacity-90 text-white font-medium py-3 rounded-lg transition-colors text-sm"
             >
-              Check Availability
+              Fill Details
             </button>
 
             <button
               type="button"
               onClick={handleAddToCart}
-              className="w-full bg-gray-700 hover:bg-gray-600 text-white font-medium py-3 rounded-lg transition-colors text-sm"
+              className="w-full bg-gradient-to-tr from-[#E8424A] to-[#F97D67]  text-white font-medium py-3 rounded-lg transition-colors text-sm"
             >
               Add to Cart
             </button>
@@ -485,7 +443,7 @@ const Form = () => {
             {showCheckout && clientSecret && (
               <div className="mt-6">
                 <Elements options={options} stripe={stripePromise}>
-                  <CheckoutForm submitData = {submitData} />
+                  <CheckoutForm submitData={submitData} />
                 </Elements>
               </div>
             )}
@@ -497,15 +455,3 @@ const Form = () => {
 };
 
 export default Form;
-
-
-
-
-
-
-
-
-
-
-
-

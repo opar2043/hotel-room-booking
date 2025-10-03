@@ -8,7 +8,7 @@
 [Econo Lodge Live Demo](https://hoteleconolodge.netlify.app/)
 
 Econo Lodge is a full-stack hotel booking platform where customers can browse available rooms across **3 categories**, make secure bookings, and pay online via **Stripe**.  
-It also includes an **admin dashboard** to manage bookings, payments, users, and room availability.
+It also includes an **admin dashboard** to manage bookings, payments, users, and room availability , check in/out by confirming email.
 
 ---
 

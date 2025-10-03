@@ -23,6 +23,7 @@ import RoomAdmin from './Component/Dashboard/RoomAdmin/RoomAdmin';
 import User from './Component/Dashboard/User/User';
 import Login from './Component/Provider/Login';
 import Register from './Component/Provider/Register';
+import CheckinOut from './Component/CheckinOut/CheckinOut';
 
 const queryClient = new QueryClient();
 
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
       },
       {
         path: '/facilities',
+        element: <CheckinOut></CheckinOut>
+      },
+      {
+        path: '/facility',
         element: <Facilities></Facilities>
       },
       {

@@ -46,7 +46,12 @@ const Navbar = () => {
       </li>
       <li className="hover:text-orange-300">
         <NavLink to="/facilities" onClick={() => setIsOpen(false)}>
-          Facilities
+          Check-In/Out
+        </NavLink>
+      </li>
+      <li className="hover:text-orange-300">
+        <NavLink to="/facility" onClick={() => setIsOpen(false)}>
+          Facility
         </NavLink>
       </li>
       <li className="hover:text-orange-300">

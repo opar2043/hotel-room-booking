@@ -45,6 +45,7 @@ It also includes an **admin dashboard** to manage bookings, payments, users, and
 - Tailwind CSS
 - DaisyUI
 - Firebase Authentication
+- Web Forms
 
 **Backend:**
 - Node.js

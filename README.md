@@ -9,6 +9,9 @@
 
 Econo Lodge is a full-stack hotel booking platform where customers can browse available rooms across **3 categories**, make secure bookings, and pay online via **Stripe**.  
 It also includes an **admin dashboard** to manage bookings, payments, users, and room availability , check in/out by confirming email.
+admin credential: 
+gmail: `kihu@gmail.com `
+pass : `12345678`
 
 ---
 

@@ -2,7 +2,7 @@
 
 
 - Live Link : https://hoteleconolodge.netlify.app/
-=======
+
 # 🏨 Econo Lodge - Hotel Booking Platform
 
 [Econo Lodge Live Demo](https://hoteleconolodge.netlify.app/)
